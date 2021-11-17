@@ -17,6 +17,14 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.17
-
+    
     - name: Test
+      run: gotip test -v -race -coverprofile=stringx.cov -covermode=atomic ./
+
+    - name: Benchmark
       run: go test -v -benchmem -bench . 
+
+    - name: Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        files: ./stringx.cov
